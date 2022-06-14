@@ -5,9 +5,7 @@
       <div class="card-header">
         {{ utilisateur.entreprise }}
         <div class="card">
-          <div class="name">
-            {{ utilisateur.nom }} {{ utilisateur.prenom }}
-          </div>
+          <div class="name">{{ utilisateur.nom }} {{ utilisateur.prenom }}</div>
           <div class="info">
             <p>Email : {{ utilisateur.email }}</p>
             <p>Téléphone : {{ utilisateur.telephone }}</p>
@@ -17,34 +15,67 @@
     </div>
   </li>
 </ul>
+
 <h2>Ajouter un utilisateur</h2>
-<form [formGroup]="utilisateur" (ngSubmit)="onSubmit()">
-  <label for="nom"
-    >Nom
-    <input type="text" formControlName="nom" />
-    <!-- on verifie que submitted =true et que nom de notre formulaire est invalide -->
-    <span *ngIf="submitted && form['nom'].invalid && form['nom'].dirty"> * Nom invalide</span>
-  </label>
-  <label for="prenom"
-    >Prénom
-    <input type="text" formControlName="prenom" />
-    <span *ngIf="submitted && form['prenom'].invalid"> * Prénom invalide</span>
-  </label>
-  <label for="email"
-    >Email
-    <input type="email" formControlName="email" />
-    <span *ngIf="submitted && form['email'].invalid"> * Email invalide</span>
-  </label>
-  <label for="entreprise"
-    >Entreprise
-    <input type="text" formControlName="entreprise" />
-    <span *ngIf="submitted && form['entreprise'].invalid"> * Entreprise invalide</span>
-  </label>
-  <label for="telephone"
-    >Téléphone
-    <input type="number" formControlName="telephone" />
-    <span *ngIf="submitted && form['telephone'].invalid"> * Téléphone invalide</span>
-  </label>
-  <button type="submit">Ajouter</button>
-  <button type="reset" (click)="onDelete()">Supprimer</button>
-</form>
+<div>
+  <form [formGroup]="utilisateur" (ngSubmit)="onSubmit()">
+    <div class="userDiv">
+      <label for="nom"
+        >Nom
+        <input type="text" formControlName="nom" />
+        <span *ngIf="submitted && form['nom'].invalid">
+          <span *ngIf="form['nom'].hasError('minLenght')">
+            * Le nom doit contenir au moins 2 caractères
+          </span>
+          <span *ngIf="!form['nom'].value"> * Nom obligadoire </span>
+        </span>
+      </label>
+    </div>
+    <div class="userDiv">
+      <label for="prenom"
+        >Prénom
+        <input type="text" formControlName="prenom" />
+        <span *ngIf="submitted && form['prenom'].invalid">
+          <span *ngIf="form['prenom'].hasError('minLenght')">
+            * Le prénom doit contenir au moins 2 caractères
+          </span>
+          <span *ngIf="!form['prenom'].value"> * Prénom obligadoire </span>
+        </span>
+      </label>
+    </div>
+    <div class="userDiv">
+      <label for="email"
+        >Email
+        <input type="email" formControlName="email" />
+        <span *ngIf="submitted && form['email'].invalid">
+          <span *ngIf="form['email'].hasError('minLenght')">
+            * L'email' doit contenir au moins 2 caractères
+          </span>
+          <span *ngIf="!form['email'].value"> * Email obligadoire </span>
+        </span>
+      </label>
+    </div>
+    <div class="userDiv">
+      <label for="entreprise"
+        >Entreprise
+        <input type="text" formControlName="entreprise" />
+        <span *ngIf="submitted && form['entreprise'].invalid">
+          * Entreprise invalide
+        </span>
+      </label>
+    </div>
+    <div class="userDiv">
+      <label for="telephone"
+        >Téléphone
+        <input type="number" formControlName="telephone" />
+        <span *ngIf="submitted && form['telephone'].invalid">
+          * Téléphone invalide
+        </span>
+      </label>
+    </div>
+    <div class="bouton">
+      <button type="submit">Ajouter</button>
+      <button type="reset" (click)="onDelete()">Supprimer</button>
+    </div>
+  </form>
+</div>

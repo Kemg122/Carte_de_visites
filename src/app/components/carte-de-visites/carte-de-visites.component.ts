@@ -7,20 +7,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./carte-de-visites.component.scss'],
 })
 export class CarteDeVisitesComponent implements OnInit {
-  // utilisateur: FormGroup = this.formBuilder.group({
-  //   nom: ['Lermite', Validators.minLength(2)],
-  //   prenom: ['Bernard', Validators.minLength(2)],
-  //   email: ['bernardlermite@crustace.com', Validators.email],
-  //   entreprise: ['voleurdecoquille.org', Validators.minLength(2)],
-  //   telephone: ['6666666666', Validators.minLength(10)],
-  // });
 
   utilisateur: FormGroup = this.formBuilder.group({
-    nom: ['', Validators.minLength(2)],
-    prenom: ['', Validators.minLength(2)],
-    email: ['', Validators.email],
-    entreprise: ['', Validators.minLength(2)],
-    telephone: ['', Validators.minLength(10)],
+    nom: ['', [Validators.minLength(2), Validators.required]],
+    prenom: ['', [Validators.minLength(2), Validators.required]],
+    email: ['', [Validators.email, Validators.required]],
+    entreprise: ['', [Validators.minLength(2), Validators.required]],
+    telephone: ['', [Validators.minLength(10), Validators.required]],
   });
 
   utilisateurs: any[] = [
@@ -40,34 +33,40 @@ export class CarteDeVisitesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {}
-
+/**
+ * Permet d'ajouter un utilisateur à nos cartes de visites
+ */
   private ajoutUtilisateur(): void {
     this.utilisateurs.push(this.utilisateur.value);
     this.utilisateur.reset();
     this.submitted = false;
   }
-
+/**
+ * Permet de supprimer le dernier utilisateur entré dans notre liste de carte
+ */
   private supprimeUtilisateur(): void {
     this.utilisateurs.splice(this.utilisateurs.length - 1, 1);
     this.utilisateur.reset();
   }
-
-  onSubmit(): boolean {
+/**
+ * permet de vérifier si on a ajouter un utilisateur au formulaire
+ */
+  onSubmit(): void {
     this.submitted = true;
     if (this.utilisateur.invalid) {
-      return false;
+      console.log("Le formulaire a fait plouf!")
     } else {
       this.ajoutUtilisateur();
-      return true;
     }
   }
-
-  onDelete(): boolean {
+/**
+ * permet de supprimer le dernier utilisateur lorsqu'on appuie sur le bouton
+ */
+  onDelete(): void {
     if (this.utilisateurs.length - 1 >= 0) {
       this.supprimeUtilisateur();
-      return true;
     } else {
-      return false;
+      console.log("Problème lors de la suppression!")
     }
   }
 }

@@ -25,7 +25,6 @@
     padding: 1px;
     font-weight: 600;
     color:whitesmoke
-
 }
 
 .card {
@@ -46,5 +45,19 @@
     text-align: left;
     font-weight: 150;
     font-size: 20px;
+}
 
+.userDiv{
+  width: 200px;
+  height: auto;
+  margin: 5px;
+  justify-content: center;
+  //border: 1px solid black;
+}
+.bouton{
+  // width: 200px;
+  // height: auto;
+  margin: 5px;
+  justify-content: space-between;
+  //border: 1px solid black;
 }
